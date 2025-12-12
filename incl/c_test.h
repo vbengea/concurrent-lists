@@ -2,6 +2,7 @@
 # define C_TEST_H
 
 #include <stdio.h>
+#include <string.h>
 #include <pthread.h>
 #include <unistd.h>
 #include <stdbool.h>
@@ -35,5 +36,15 @@ void sort_list(t_list *list);
 
 
 void cleanup(t_data *data);
+
+void *routine(void *arg);
+
+bool init_data(t_data *data, char **argv);
+
+bool parse_args(char **argv);
+
+bool init_join_threads(t_data *data);
+
+void sort_and_print(t_data *data);
 
 #endif

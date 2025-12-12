@@ -16,7 +16,12 @@ SRCS = $(SRC_DIR)/main.c \
 		$(SRC_DIR)/generate_random_number.c \
 		$(SRC_DIR)/list_utils.c \
 		$(SRC_DIR)/sort_list.c \
-		$(SRC_DIR)/cleanup.c
+		$(SRC_DIR)/cleanup.c \
+		$(SRC_DIR)/routine.c \
+		$(SRC_DIR)/init_data.c \
+		$(SRC_DIR)/parse_args.c \
+		$(SRC_DIR)/init_join_threads.c \
+		$(SRC_DIR)/sort_and_print.c
 
 OBJS = $(patsubst $(SRC_DIR)/%.c, $(OBJ_DIR)/%.o, $(SRCS))
 

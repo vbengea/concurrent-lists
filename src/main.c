@@ -1,100 +1,8 @@
 #include "../incl/c_test.h"
 
-// Check each character of the string to see if it's a number
-bool parse_args(char **argv) {
-	int	i;
-	int	j;
-
-	i = 0;
-	while (argv[i]) {
-		j = 0;
-		while (argv[i][j]) {
-			if (argv[i][j] > '9' || argv[i][j] < '0') {
-				fprintf(stderr, "Args must be numbers\n");
-				return false;
-			}
-			j++;
-		}
-		i++;
-	}
-	return true;
-}
-
-
-bool init_data(t_data *data, char **argv) {
-	data->positive = NULL;
-	data->negative = NULL;
-
-	data->n_threads = atoi(argv[1]);
-	if (data->n_threads <= 0 || data->n_threads >= 1000) {
-		fprintf(stderr, "Number of threads must be between 1 and 1000\n");
-		return false;
-	}
-	data->n_random_numbers = atoi(argv[2]);
-	if (data->n_random_numbers <= 0 || data->n_random_numbers >= 100000) {
-		fprintf(stderr, "Number of random numbers must be between 1 and 100000");
-		return false;
-	}
-
-	data->threads = malloc(sizeof(pthread_t) * data->n_threads);
-	if (!data->threads) {
-		perror("malloc failed");
-		return false;
-	}
-
-	pthread_mutex_init(&data->insert_positive, NULL);
-	pthread_mutex_init(&data->insert_negative, NULL);
-	pthread_mutex_init(&data->random, NULL);
-
-	return true;
-}
-
-void insert_numbers(t_data *data) {
-	int	i;
-	int	number;
-	int	failed;
-
-	failed = 0;
-	i = 0;
-	while (i < data->n_random_numbers) {
-		pthread_mutex_lock(&data->random);
-		number = generate_random_number();
-		pthread_mutex_unlock(&data->random);
-		if (number >= 0) {
-			pthread_mutex_lock(&data->insert_positive);
-			if (!add_number_front(&data->positive, number))
-				failed++;
-			pthread_mutex_unlock(&data->insert_positive);
-		}
-		else {
-			pthread_mutex_lock(&data->insert_negative);
-			if (!add_number_front(&data->negative, number))
-				failed++;
-			pthread_mutex_unlock(&data->insert_negative);
-		}
-		i++;
-	}
-	if (failed > 0) {
-		fprintf(stderr, "Thread %lu: Failed to allocate memory for %d numbers\n",
-			pthread_self(), failed);
-	}
-}
-
-
-void *routine(void *arg) {
-	t_data	*data;
-
-	data = (t_data *)arg;
-	insert_numbers(data);
-
-	return NULL;
-}
-
-// Fisrst arg: Total number of threads
-// Second arg: Total numbers that each thread generates
 int main(int argc, char **argv) {
 	t_data	data;
-	int		i;
+
 	srandom(time(NULL));
 
 	if (argc != 3) {
@@ -102,34 +10,15 @@ int main(int argc, char **argv) {
 			<number of random numbers>\n", argv[0]);
 		return 1;
 	}
-
-	if (!parse_args(argv + 1)) // Skip the name of the program
+	if (!parse_args(argv + 1))
 		return 2;
 
 	if (!init_data(&data, argv)) {
 		return 3;
 	}
 	else {
-		// Initialize threads
-		i = 0;
-		while (i < data.n_threads) {
-			pthread_create(&data.threads[i], NULL, routine, &data);
-			i++;
-		}
-		i = 0;
-		while (i < data.n_threads) {
-			pthread_join(data.threads[i], NULL);
-			i++;
-		}
-
-		// Sort
-		// sort_list(data.positive);
-		// sort_list(data.negative);
-
-		print_list(data.positive);
-		print_list(data.negative);
-		// Print
-		// Free and Clean
+		init_join_threads(&data);
+		sort_and_print(&data);
 		cleanup(&data);
 	}
 
