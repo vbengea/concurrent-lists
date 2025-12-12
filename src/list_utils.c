@@ -5,7 +5,7 @@ bool add_number_front(t_list **list, int number) {
 
 	new_number = malloc(sizeof(t_list));
 	if (!new_number){
-		perror("malloc failed");
+		perror("malloc failed\n");
 		return false;
 	}
 
@@ -23,7 +23,7 @@ bool add_number_back(t_list **list, int number) {
 
 	new_number = malloc(sizeof(t_list));
 	if (!new_number){
-		perror("malloc failed");
+		perror("malloc failed\n");
 		return false;
 	}
 
@@ -70,6 +70,9 @@ void free_list(t_list *list) {
 int list_size(t_list *list) {
 	int		i;
 	t_list	*temp;
+
+	if (!list)
+		return 0;
 
 	temp = list;
 	i = 0;

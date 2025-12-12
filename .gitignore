@@ -2,4 +2,4 @@
 *.out
 *.o
 bin
-obj
+obj*.pdf

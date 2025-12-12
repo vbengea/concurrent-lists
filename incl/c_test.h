@@ -7,6 +7,7 @@
 #include <unistd.h>
 #include <stdbool.h>
 #include <stdlib.h>
+#include <time.h>
 
 typedef struct s_list {
 	int				number;
