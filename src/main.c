@@ -101,16 +101,16 @@ int main(int argc, char **argv) {
 			i++;
 		}
 
-		print_list(data.positive);
-		// print_list(data.negative);
 
-		printf("Done!\n");
 		// Sort
-		sort_list(data.positive);
+		// sort_list(data.positive);
+		// sort_list(data.negative);
 
 		print_list(data.positive);
+		print_list(data.negative);
 		// Print
 		// Free and Clean
+		cleanup(&data);
 	}
 
 	return 0;

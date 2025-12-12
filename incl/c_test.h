@@ -33,4 +33,7 @@ void free_list(t_list *list);
 int list_size(t_list *list);
 void sort_list(t_list *list);
 
+
+void cleanup(t_data *data);
+
 #endif
