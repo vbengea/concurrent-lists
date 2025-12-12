@@ -28,24 +28,24 @@ typedef struct s_data {
 int generate_random_number(void);
 
 // List utils
-bool add_number_front(t_list **list, int number);
-bool add_number_back(t_list **list, int number);
-void print_list(t_list *list);
-void free_list(t_list *list);
-int list_size(t_list *list);
-void sort_list(t_list *list);
+bool	add_number_front(t_list **list, int number);
+bool	add_number_back(t_list **list, int number);
+void	print_list(t_list *list);
+void	free_list(t_list *list);
+int		list_size(t_list *list);
+void	sort_list(t_list *list);
 
 
-void cleanup(t_data *data);
+void	cleanup(t_data *data);
 
-void *routine(void *arg);
+void	*routine(void *arg);
 
-bool init_data(t_data *data, char **argv);
+bool	init_data(t_data *data, char **argv);
 
-bool parse_args(char **argv);
+bool	parse_args(char **argv);
 
-bool init_join_threads(t_data *data);
+bool	init_join_threads(t_data *data);
 
-void sort_and_print(t_data *data);
+void	sort_and_print(t_data *data);
 
 #endif
