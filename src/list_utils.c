@@ -1,8 +1,11 @@
 #include "../incl/c_test.h"
 
 bool add_number_front(t_list **list, int number) {
-	t_list *new_number = malloc(sizeof(t_list));
+	t_list	*new_number;
+
+	new_number = malloc(sizeof(t_list));
 	if (!new_number){
+		perror("malloc failed");
 		return false;
 	}
 
@@ -15,8 +18,12 @@ bool add_number_front(t_list **list, int number) {
 
 
 bool add_number_back(t_list **list, int number) {
-	t_list *new_number = malloc(sizeof(t_list));
+	t_list	*new_number;
+	t_list	*temp;
+
+	new_number = malloc(sizeof(t_list));
 	if (!new_number){
+		perror("malloc failed");
 		return false;
 	}
 
@@ -27,7 +34,7 @@ bool add_number_back(t_list **list, int number) {
 		*list = new_number;
 		return true;
 	}
-	t_list *temp = *list;
+	temp = *list;
 
 	while (temp->next)
 		temp = temp->next;
@@ -39,7 +46,7 @@ bool add_number_back(t_list **list, int number) {
 
 
 void print_list(t_list *list) {
-	t_list *temp;
+	t_list	*temp;
 
 	temp = list;
 	while (temp) {
@@ -49,8 +56,8 @@ void print_list(t_list *list) {
 }
 
 void free_list(t_list *list) {
-	t_list *temp;
-	t_list *next;
+	t_list	*temp;
+	t_list	*next;
 
 	temp = list;
 	while (temp) {
@@ -61,9 +68,11 @@ void free_list(t_list *list) {
 }
 
 int list_size(t_list *list) {
-	int i = 0;
-	t_list *temp = list;
+	int		i;
+	t_list	*temp;
 
+	temp = list;
+	i = 0;
 	while (temp){
 		temp = temp->next;
 		i++;
