@@ -70,7 +70,6 @@ void *routine(void *arg) {
 	return NULL;
 }
 
-
 // Fisrst arg: Total number of threads
 // Second arg: Total numbers that each thread generates
 int main(int argc, char **argv) {
@@ -103,9 +102,13 @@ int main(int argc, char **argv) {
 		}
 
 		print_list(data.positive);
-		print_list(data.negative);
+		// print_list(data.negative);
 
+		printf("Done!\n");
 		// Sort
+		sort_list(data.positive);
+
+		print_list(data.positive);
 		// Print
 		// Free and Clean
 	}

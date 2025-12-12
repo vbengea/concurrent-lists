@@ -13,8 +13,9 @@ BIN_DIR = bin
 NAME = $(BIN_DIR)/c_test
 
 SRCS = $(SRC_DIR)/main.c \
-		$(SRC_DIR)/random_numbers.c \
-		$(SRC_DIR)/list_utils.c
+		$(SRC_DIR)/generate_random_number.c \
+		$(SRC_DIR)/list_utils.c \
+		$(SRC_DIR)/sort_list.c
 
 OBJS = $(patsubst $(SRC_DIR)/%.c, $(OBJ_DIR)/%.o, $(SRCS))
 

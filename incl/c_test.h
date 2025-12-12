@@ -30,5 +30,7 @@ bool add_number_front(t_list **list, int number);
 bool add_number_back(t_list **list, int number);
 void print_list(t_list *list);
 void free_list(t_list *list);
+int list_size(t_list *list);
+void sort_list(t_list *list);
 
 #endif

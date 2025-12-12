@@ -59,3 +59,14 @@ void free_list(t_list *list) {
 		temp = next;
 	}
 }
+
+int list_size(t_list *list) {
+	int i = 0;
+	t_list *temp = list;
+
+	while (temp){
+		temp = temp->next;
+		i++;
+	}
+	return i;
+}
