@@ -14,6 +14,10 @@ void sort_list(t_list *list) {
 		return;
 
 	arr = malloc(sizeof(int) * size);
+	if (!arr){
+		perror("malloc failed");
+		return;
+	}
 	temp = list;
 	for (int i = 0; i < size; i++) {
 		arr[i] = temp->number;
