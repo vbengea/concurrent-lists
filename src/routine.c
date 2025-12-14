@@ -1,16 +1,20 @@
 #include "../incl/c_test.h"
 
 static void insert_numbers(t_data *data) {
-	int	i;
-	int	number;
-	int	failed;
+	int					i;
+	int					number;
+	int					failed;
+	struct drand48_data	buffer;
+	unsigned long		thread_id;
 
 	failed = 0;
 	i = 0;
+
+	thread_id = (unsigned long)pthread_self();
+	srand48_r(time(NULL) ^ thread_id, &buffer);
+
 	while (i < data->n_random_numbers) {
-		pthread_mutex_lock(&data->random);
-		number = generate_random_number();
-		pthread_mutex_unlock(&data->random);
+		number = generate_random_number(&buffer);
 		if (number >= 0) {
 			pthread_mutex_lock(&data->insert_positive);
 			if (!add_number_front(&data->positive, number))

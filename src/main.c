@@ -3,8 +3,6 @@
 int main(int argc, char **argv) {
 	t_data	data;
 
-	srandom(time(NULL));
-
 	if (argc != 3) {
 		fprintf(stderr, "Usage: %s <number of threads> \
 			<number of random numbers>\n", argv[0]);

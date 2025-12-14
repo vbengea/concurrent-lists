@@ -11,5 +11,4 @@ void cleanup(t_data *data) {
 
 	pthread_mutex_destroy(&data->insert_negative);
 	pthread_mutex_destroy(&data->insert_positive);
-	pthread_mutex_destroy(&data->random);
 }

@@ -18,15 +18,6 @@ static bool init_mutex(t_data *data) {
 		return false;
 	}
 
-	ret = pthread_mutex_init(&data->random, NULL);
-	if (ret != 0){
-		fprintf(stderr, "pthread_mutex_init failed: %s\n", strerror(ret));
-		free(data->threads);
-		pthread_mutex_destroy(&data->insert_positive);
-		pthread_mutex_destroy(&data->insert_negative);
-		return false;
-	}
-
 	return true;
 }
 
@@ -45,7 +36,7 @@ bool init_data(t_data *data, char **argv) {
 	}
 	data->threads = malloc(sizeof(pthread_t) * data->n_threads);
 	if (!data->threads) {
-		perror("malloc failed\n");
+		perror("malloc failed");
 		return false;
 	}
 	if (!init_mutex(data))

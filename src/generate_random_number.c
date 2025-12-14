@@ -1,8 +1,8 @@
 #include "../incl/c_test.h"
 
-int generate_random_number() {
-	unsigned int r = (unsigned int)random() << 1 | (random() & 1);
-	int number = (int)r;
+int generate_random_number(struct drand48_data *buffer) {
 
-	return number;
+	long int result;
+	mrand48_r(buffer, &result);
+	return (int)result;
 }

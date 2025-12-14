@@ -1,6 +1,8 @@
 #ifndef C_TEST_H
 # define C_TEST_H
 
+# define _GNU_SOURCE
+
 #include <stdio.h>
 #include <string.h>
 #include <pthread.h>
@@ -22,10 +24,9 @@ typedef struct s_data {
 	pthread_t		*threads;
 	pthread_mutex_t	insert_positive;
 	pthread_mutex_t	insert_negative;
-	pthread_mutex_t	random;
 } t_data;
 
-int generate_random_number(void);
+int generate_random_number(struct drand48_data *buffer);
 
 // List utils
 bool	add_number_front(t_list **list, int number);
