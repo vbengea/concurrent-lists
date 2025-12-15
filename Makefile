@@ -50,9 +50,18 @@ fclean: clean
 	@echo "${RED}Objects and executable removed${NC}"
 
 test: $(NAME)
-	@cd testing && chmod +x invalid_input.sh leaks.sh order.sh
-	@cd testing && ./invalid_input.sh && ./leaks.sh && ./order.sh
+	@cd testing && chmod +x invalid_input.sh leaks.sh order.sh race_conditions.sh
+	@cd testing && ./invalid_input.sh && ./leaks.sh && ./order.sh && ./race_conditions.sh
+
+test-tsan: CFLAGS = -Wall -Wextra -Werror -pthread -fsanitize=thread -g
+test-tsan: fclean
+	@echo "${GREEN}Compiling with ThreadSanitizer...${NC}"
+	@$(MAKE) --no-print-directory NAME=$(BIN_DIR)/c_test_tsan
+	@echo "${GREEN}Running ThreadSanitizer tests...${NC}"
+	@$(BIN_DIR)/c_test_tsan 4 100 > /dev/null 2>&1 && echo "${GREEN}✓ ThreadSanitizer: No issues detected${NC}" || echo "${RED}✗ ThreadSanitizer: Issues found${NC}"
+	@$(BIN_DIR)/c_test_tsan 10 50 > /dev/null 2>&1 && echo "${GREEN}✓ ThreadSanitizer: No issues detected${NC}" || echo "${RED}✗ ThreadSanitizer: Issues found${NC}"
+	@rm -f $(BIN_DIR)/c_test_tsan
 
 re: fclean all
 
-.PHONY: all clean fclean re test
+.PHONY: all clean fclean re test test-tsan

@@ -70,6 +70,22 @@ This will automatically:
 - Run invalid input tests
 - Run memory leak tests
 - Run sorting order tests
+- Run race condition tests
+
+### ThreadSanitizer Testing
+
+To run additional race condition detection with ThreadSanitizer:
+
+```bash
+make test-tsan
+```
+
+This will:
+- Recompile the program with `-fsanitize=thread` flag
+- Run tests specifically designed to catch threading issues
+- Clean up the test binary automatically
+
+Note: Requires Clang or GCC with ThreadSanitizer support.
 
 ### Individual Test Suites
 
@@ -101,3 +117,14 @@ Validates that output is correctly sorted:
 cd testing
 ./order.sh
 ```
+
+#### Race Condition Tests
+
+Detects threading issues and race conditions using Helgrind:
+
+```bash
+cd testing
+./race_conditions.sh
+```
+
+Note: Requires Valgrind with Helgrind tool installed.
