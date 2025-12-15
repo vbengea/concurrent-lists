@@ -47,11 +47,13 @@ bool add_number_back(t_list **list, int number) {
 
 void print_list(t_list *list) {
 	t_list	*temp;
+	static int i = 0;
 
 	temp = list;
 	while (temp) {
-		printf("Number: %d\n", temp->number);
+		printf("Number [%d]: %d\n", i, temp->number);
 		temp = temp->next;
+		i++;
 	}
 }
 

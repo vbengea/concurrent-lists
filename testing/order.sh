@@ -21,7 +21,7 @@ run_order_test() {
 		return
 	fi
 
-	local numbers=($(echo "$output" | grep "Number:" | awk '{print $2}'))
+	local numbers=($(echo "$output" | grep "Number" | awk '{print $3}'))
 
 	if [[ ${#numbers[@]} -eq 0 ]]; then
 		echo -e "${RED}FAIL (no output)${NC}"

@@ -4,7 +4,7 @@ RED=\033[0;31m
 GREEN=\033[0;32m
 NC=\033[0m
 
-CFLAGS = -Wall -Wextra -Werror
+CFLAGS = -Wall -Wextra -Werror -pthread
 SRC_DIR = src
 INCL_DIR = incl
 OBJ_DIR = obj
@@ -38,7 +38,7 @@ $(BIN_DIR):
 	@mkdir -p $(BIN_DIR)
 
 $(NAME): $(OBJS) | $(BIN_DIR)
-	@$(CC) $(OBJS) -o $@
+	@$(CC) $(CFLAGS) $(OBJS) -o $@
 	@echo "${GREEN}C_TEST Compiled${NC}"
 
 clean:
@@ -49,6 +49,10 @@ fclean: clean
 	@rm -rf $(NAME) $(OBJ_DIR) $(BIN_DIR)
 	@echo "${RED}Objects and executable removed${NC}"
 
+test: $(NAME)
+	@cd testing && chmod +x invalid_input.sh leaks.sh order.sh
+	@cd testing && ./invalid_input.sh && ./leaks.sh && ./order.sh
+
 re: fclean all
 
-.PHONY: all clean fclean re
+.PHONY: all clean fclean re test

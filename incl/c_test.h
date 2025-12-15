@@ -40,7 +40,7 @@ int generate_random_number(struct drand48_data *buffer);
 
 // ============================================================================
 // List Operations
-// ============================================================================bool	add_number_front(t_list **list, int number);
+// ============================================================================
 
 bool	add_number_front(t_list **list, int number);
 bool	add_number_back(t_list **list, int number);
